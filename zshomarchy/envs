@@ -1,0 +1,10 @@
+# Editor used by CLI
+export EDITOR=nvim
+export VISUAL=nvim
+export SUDO_EDITOR="$EDITOR"
+export BAT_THEME=ansi
+
+# Duplicated from .config/uwsm/env so SSH works too
+export OMARCHY_PATH=/usr/share/omarchy
+export ZSHOMARCHY_PATH=$HOME/dotfiles_quattro_laptop/zshomarchy
+export PATH=$OMARCHY_PATH/bin:$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/opt/go/bin:$HOME/.cargo/bin

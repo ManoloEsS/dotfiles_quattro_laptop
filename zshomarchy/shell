@@ -1,0 +1,47 @@
+# Zsh Options
+setopt autocd              # Auto change directory
+setopt autopushd           # Auto push directory to stack
+setopt pushdignoredups     # Ignore duplicates in directory stack
+setopt sharehistory        # Share history between sessions
+setopt histignorespace     # Ignore commands starting with space
+setopt appendhistory       # Append to history file
+setopt correct             # Command correction
+
+
+# Additional options from arch-hypr
+setopt dot_glob            # Expand dotfiles with *
+setopt extended_glob      # Extended globbing
+
+# History settings
+HISTSIZE=32768
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# Keybindings (Emacs-style - overridden by vi-mode later)
+bindkey -e
+
+# Custom Control+J/K for history
+bindkey "^J" down-line-or-history
+bindkey "^K" up-line-or-history
+
+# FZF keybindings (if available)
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+fi
+
+# FZF completion (if available)
+if [[ -f /usr/share/fzf/completion.zsh ]]; then
+  source /usr/share/fzf/completion.zsh
+fi

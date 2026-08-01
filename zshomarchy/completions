@@ -1,0 +1,25 @@
+# Omarchy zsh completions
+_omarchy() {
+  local -a commands
+  commands=(
+    'capture:Screenshots and recordings'
+    'commands:List available commands'
+    'debug:Debug information'
+    'font:Font management'
+    'install:Install optional software'
+    'launch:Launch apps'
+    'menu:Menu system'
+    'pkg:Package management'
+    'refresh:Reset configs to defaults'
+    'reminder:Desktop notification reminders'
+    'restart:Restart services'
+    'setup:Initial setup tasks'
+    'system:System operations'
+    'theme:Theme management'
+    'toggle:Toggle features on/off'
+    'update:System update'
+    'version:Show version'
+  )
+  _describe 'omarchy' commands
+}
+compdef _omarchy omarchy

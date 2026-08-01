@@ -1,0 +1,53 @@
+# File system
+if command -v lsd &> /dev/null; then
+  alias ls='lsd -lh --group-directories-first'
+  alias lsa='ls -a'
+  alias lt='lsd --tree --level=2 --long'
+  alias lta='lt -a'
+elif command -v eza &> /dev/null; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias lsa='ls -a'
+  alias lt='eza --tree --level=2 --long --icons --git'
+  alias lta='lt -a'
+fi
+
+if [[ "$TERM" == "xterm-kitty" ]]; then
+  alias ff="fzf --preview 'case \$(file --mime-type -b {}) in image/*) kitty icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@0x0 {} ;; *) bat --style=numbers --color=always {} ;; esac'"
+else
+  alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+fi
+alias eff='$EDITOR "$(ff)"'
+
+if command -v zoxide &> /dev/null; then
+  alias cd="z"
+fi
+
+open() (
+  xdg-open "$@" >/dev/null 2>&1 &
+)
+
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Tools
+alias c='opencode'
+alias cx='printf "\033[2J\033[3J\033[H" && claude --allow-dangerously-skip-permissions'
+alias d='docker'
+alias r='rails'
+alias t='tmux attach || tmux new -s Work'
+n() { if [ "$#" -eq 0 ]; then nvim . ; else nvim "$@"; fi; }
+sff() { if [ $# -eq 0 ]; then echo "Usage: sff <destination> (e.g. sff host:/tmp/)"; return 1; fi; local file; file=$(find . -type f -printf '%T@\t%p\n' | sort -rn | cut -f2- | fzf --preview 'bat --style=numbers --color=always {}') && [ -n "$file" ] && scp "$file" "$1"; }
+
+# Git
+alias g='git'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+
+mkcd() {
+  mkdir $1
+  cd $1
+}
+
