@@ -19,7 +19,7 @@ hl.unbind("SUPER + SHIFT + COMMA")
 
 -- The default uses Super+Slash for monitor scaling; the project uses it to
 -- show keybindings instead.
-hl.unbind("SUPER + SLASH")
+hl.unbind("SUPER + code:61")
 
 -- P toggles pseudo mode by default; the project uses it for master layout
 -- navigation.
