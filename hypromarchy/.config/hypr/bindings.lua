@@ -1,55 +1,40 @@
--- Personal keybindings: Omarchy quattro defaults with custom overrides.
--- Loaded after Omarchy's default bindings, so unbinds here win.
+-- Personal keybindings loaded after Omarchy defaults.
 
 -- See current bindings and descriptions:
 --   omarchy menu keybindings --print
 
 -- =====================================================
--- UNBINDS: keys we're remapping from Omarchy quattro defaults
+-- CONFLICTS WITH OMARCHY DEFAULTS
 -- =====================================================
 
--- Navigation overrides (HJKL focus)
+-- J toggles split, K shows keybindings, and L toggles the workspace layout
+-- in the defaults. The project uses them for HJKL focus navigation.
 hl.unbind("SUPER + J")
 hl.unbind("SUPER + K")
 hl.unbind("SUPER + L")
 
--- App/webapp launcher unbinds (preinstalled block is off via hyprland.lua,
--- so these are defensive; they also apply if preinstalls are re-enabled)
-hl.unbind("SUPER + SHIFT + M")
-hl.unbind("SUPER + SHIFT + ALT + M")
-hl.unbind("SUPER + SHIFT + N")
-hl.unbind("SUPER + SHIFT + D")
-hl.unbind("SUPER + SHIFT + G")
-hl.unbind("SUPER + SHIFT + O")
-hl.unbind("SUPER + SHIFT + W")
-hl.unbind("SUPER + SHIFT + SLASH")
-hl.unbind("SUPER + SHIFT + A")
-hl.unbind("SUPER + SHIFT + ALT + A")
-hl.unbind("SUPER + SHIFT + C")
-hl.unbind("SUPER + SHIFT + E")
-hl.unbind("SUPER + SHIFT + Y")
-hl.unbind("SUPER + SHIFT + comma")
-hl.unbind("SUPER + SHIFT + ALT + G")
-hl.unbind("SUPER + SHIFT + CTRL + G")
-hl.unbind("SUPER + SHIFT + P")
-hl.unbind("SUPER + SHIFT + X")
-hl.unbind("SUPER + SHIFT + ALT + X")
+-- The default dismisses all notifications here; the project uses it to swap
+-- the active scrolling column left.
+hl.unbind("SUPER + SHIFT + COMMA")
 
--- Unbind monitor scaling up (was cycle scaling via code:61 in 3.8)
+-- The default uses Super+Slash for monitor scaling; the project uses it to
+-- show keybindings instead.
 hl.unbind("SUPER + SLASH")
 
--- SUPER+P pseudo → repurposed to scrolling rollprev
+-- P toggles pseudo mode by default; the project uses it for master layout
+-- navigation.
 hl.unbind("SUPER + P")
 
--- Volume override: 2% steps instead of default
+-- Preserve the project's precise 2% behavior instead of the default volume
+-- step.
 hl.unbind("XF86AudioRaiseVolume")
 hl.unbind("XF86AudioLowerVolume")
 
 -- =====================================================
 -- VOLUME: 2% steps
 -- =====================================================
-o.bind("XF86AudioRaiseVolume", "Volume up 2%", "omarchy-audio-output-volume +2", { locked = true, repeating = true })
-o.bind("XF86AudioLowerVolume", "Volume down 2%", "omarchy-audio-output-volume -2", { locked = true, repeating = true })
+o.bind("XF86AudioRaiseVolume", "Volume up 2%", "omarchy-swayosd-client --output-volume +2", { locked = true, repeating = true })
+o.bind("XF86AudioLowerVolume", "Volume down 2%", "omarchy-swayosd-client --output-volume -2", { locked = true, repeating = true })
 
 -- =====================================================
 -- HJKL NAVIGATION (layout-aware)
@@ -104,5 +89,15 @@ o.bind("SUPER + SHIFT + I", "Toggle scrolling/master layout", "$HOME/.config/hyp
 -- KEYBINDINGS / MONITOR SCALING
 -- =====================================================
 o.bind("SUPER + slash", "Show key bindings", "omarchy-menu-keybindings")
--- Cycle monitor scaling was retired in quattro; scaling now steps up/down.
-o.bind("SUPER + SHIFT + slash", "Monitor scaling up", "omarchy-hyprland-monitor-scaling up")
+-- This Omarchy version provides cycling rather than a directional command.
+o.bind("SUPER + SHIFT + slash", "Cycle monitor scaling", "omarchy-hyprland-monitor-scaling-cycle")
+
+-- The installed default loader does not include the app launcher block.
+-- Keep the project's essential terminal, browser, and file-manager binds.
+o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
+o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
+o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
+o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { omarchy = "nautilus-cwd" })
+o.bind("SUPER + SHIFT + B", "Browser", { omarchy = "browser" })
+o.bind("SUPER + SHIFT + ALT + B", "Browser (private)", { omarchy = "browser --private" })
+o.bind("SUPER + SHIFT + N", "Editor", { omarchy = "editor" })

@@ -17,20 +17,21 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 ## Keybinding decisions (this machine is deliberately simpler)
 
 - **Super+J / Super+K / Super+L** are unbound for HJKL navigation. `Super+L` (workspace-layout) is already covered by `Super+Shift+I` (the custom scrolling↔master toggle), and `Super+J` (togglesplit) only applies to the dwindle layout this machine doesn't use. Both were already dropped in 3.8 — no functionality was added back.
-- **Super+P** (quattro default: pseudo) is repurposed to scrolling `rollprev`.
-- **Super+/`** shows keybindings (`omarchy-menu-keybindings`); **Super+Shift+/`** does monitor scaling up (the old `omarchy-hyprland-monitor-scaling-cycle` was retired).
-- Essential app binds (Super+Shift+F/B/RETURN) stay; the preinstalled app/webapp block is off via `omarchy_preinstalled_bindings = false` in `hyprland.lua`.
-- Volume keys step 2% via `omarchy-audio-output-volume +2/-2`.
+- **Super+P** (Omarchy default: pseudo) is repurposed to scrolling `rollprev`.
+- **Super+/`** shows keybindings (`omarchy-menu-keybindings`), replacing the Omarchy monitor-scaling binding. **Super+Shift+/`** cycles monitor scaling using the command available on this system.
+- Essential app binds (Super+Shift+F/B/RETURN) stay. App/webapp unbinds are not needed because the installed default loader does not load that block.
+- Volume keys step 2% via the installed `omarchy-swayosd-client --output-volume +2/-2` command.
 
 ## Files in `hypromarchy/.config/hypr/`
 
-- `hyprland.lua` — entry point (stock + `omarchy_preinstalled_bindings = false`, `require("hypr.envs")`).
+- `hyprland.lua` — entry point (installed stock defaults plus personal modules, including `require("hypr.envs")`).
 - `monitors.lua` — GDK_SCALE 2, auto-detected display at `preferred`/`auto` with 10-bit + auto color management.
 - `input.lua` — us / `compose:caps` / numlock / repeat 40-600 / touchpad clickfinger + 0.4; `scroll_touchpad` rules.
 - `looknfeel.lua` — gaps 0, border 1, default `scrolling` layout, master block, `column_width = 0.67`.
 - `bindings.lua` — the bind set above.
 - `autostart.lua` — empty (nightlight is opt-in per `hyprsunset.conf`).
 - `envs.lua` — `HYPRLAND_NO_EXTRA_SYNC=1`.
+- `workspace-layouts.lua` — restores persisted workspace layout rules after reload.
 - `omarchy-hyprland-workspace-layout-scrolling-master-toggle` — scrolling ↔ master toggle, persists to `~/.local/state/omarchy/workspace-layouts/` and applies via `hyprctl eval`.
 - `hyprsunset.conf`, `xdph.conf` — unchanged.
 
@@ -57,5 +58,5 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 ## Known caveats / deferred
 
 - **Idle / lock**: the custom `hypridle.conf` (screensaver at 2.5 min, lock at 5 min) and `hyprlock.conf` are retired in quattro; the shell (`shell.json`) exposes only `screensaver`/`lock` timings. `omarchy-system-wake` no longer exists — the sleep/wake path is now the shell's `omarchy-system-sleep-lock` service. Revisit via a `post-boot` hook or shell idle callbacks.
-- **Lua param names to verify against `/usr/share/hypr/stubs` on the target** (Hyprland 0.55+): `hl.monitor` `bitdepth`/`cm`/`scale`, `hl.workspace_rule` `default`/`monitor`.
+- **Monitor Lua settings**: the project retains the existing retina/10-bit monitor settings for now; monitor migration is intentionally deferred.
 - **Tmux**: `tmux-sensible` may override `default-terminal` — verify the status bar after TPM install.
