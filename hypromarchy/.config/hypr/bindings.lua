@@ -20,6 +20,7 @@ hl.unbind("SUPER + SHIFT + COMMA")
 -- The default uses Super+Slash for monitor scaling; the project uses it to
 -- show keybindings instead.
 hl.unbind("SUPER + code:61")
+hl.unbind("SUPER + ALT + code:61")
 
 -- P toggles pseudo mode by default; the project uses it for master layout
 -- navigation.
@@ -71,6 +72,9 @@ o.bind("SUPER + P", "Roll previous", hl.dsp.layout("rollprev"))
 o.bind("SUPER + a", "Add master", hl.dsp.layout("addmaster"))
 o.bind("SUPER + z", "Remove master", hl.dsp.layout("removemaster"))
 
+-- Preserve Omarchy's pseudo-window action after using Super+P for rollprev.
+o.bind("SUPER + ALT + P", "Pseudo window", hl.dsp.window.pseudo())
+
 -- =====================================================
 -- SCROLLING LAYOUT
 -- =====================================================
@@ -91,6 +95,8 @@ o.bind("SUPER + SHIFT + I", "Toggle scrolling/master layout", "$HOME/.config/hyp
 o.bind("SUPER + slash", "Show key bindings", "omarchy-menu-keybindings")
 -- This Omarchy version provides cycling rather than a directional command.
 o.bind("SUPER + SHIFT + slash", "Cycle monitor scaling", "omarchy-hyprland-monitor-scaling-cycle")
+o.bind("SUPER + SHIFT + CTRL + ALT + slash", "Cycle monitor scaling backwards", "omarchy-hyprland-monitor-scaling-cycle --reverse")
+o.bind("SUPER + SHIFT + ALT + period", "Dismiss all notifications", "makoctl dismiss --all")
 
 -- The installed default loader does not include the app launcher block.
 -- Keep the project's essential terminal, browser, and file-manager binds.

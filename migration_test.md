@@ -23,6 +23,7 @@ used because they are not part of the installed default tree.
 - Keep zero gaps, a 1px border, 600ms key repeat delay, numlock, and touchpad
   scrolling settings from the project.
 - Keep `HYPRLAND_NO_EXTRA_SYNC=1`.
+- Keep the Omarchy `hypridle.conf` for screensaver, locking, and wake handling.
 - Keep HJKL focus navigation and the project master/scrolling bindings.
 - Keep the project scrolling/master workspace toggle and persist its rules in
   `~/.local/state/omarchy/workspace-layouts/`.
@@ -39,7 +40,9 @@ Only bindings that conflict with project behavior are unbound:
 
 Essential terminal, browser, editor, and file-manager bindings are defined
 explicitly because this Omarchy default loader does not include that app block.
-Other Omarchy defaults remain enabled.
+Other Omarchy defaults remain enabled. Displaced pseudo-window, reverse monitor
+scaling, and dismiss-all notifications actions are relocated rather than
+dropped.
 
 ## Command Compatibility
 
@@ -71,10 +74,14 @@ Spot-check that:
 - The active layout is scrolling.
 - `Super+H/J/K/L` focuses in four directions.
 - `Super+Shift+I` toggles scrolling and master layouts.
+- `Super+Ctrl+I` starts and stops `hypridle`.
 - The toggle survives `hyprctl reload`.
 - Volume keys change volume by 2%.
 - `Super+Slash` opens the keybindings menu.
-- The installed monitor-scaling command remains available.
+- `Super+Shift+Slash` and `Super+Shift+Ctrl+Alt+Slash` cycle monitor scaling
+  forward and backward.
+- `Super+Alt+P` activates pseudo mode.
+- `Super+Shift+Alt+Period` dismisses all notifications.
 
 ## Future Omarchy Alpha Updates
 

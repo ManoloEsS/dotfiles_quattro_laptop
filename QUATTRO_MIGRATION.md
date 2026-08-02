@@ -29,7 +29,8 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 - `input.lua` — us / `compose:caps` / numlock / repeat 40-600 / touchpad clickfinger + 0.4; `scroll_touchpad` rules.
 - `looknfeel.lua` — gaps 0, border 1, default `scrolling` layout, master block, `column_width = 0.67`.
 - `bindings.lua` — the bind set above.
-- `autostart.lua` — empty (nightlight is opt-in per `hyprsunset.conf`).
+- `autostart.lua` — empty (nightlight is opt-in per `hyprsunset.conf`; Omarchy's default idle service remains enabled).
+- `hypridle.conf` — Omarchy idle screensaver, lock, and wake behavior used by `Super+Ctrl+I`.
 - `envs.lua` — `HYPRLAND_NO_EXTRA_SYNC=1`.
 - `workspace-layouts.lua` — restores persisted workspace layout rules after reload.
 - `omarchy-hyprland-workspace-layout-scrolling-master-toggle` — scrolling ↔ master toggle, persists to `~/.local/state/omarchy/workspace-layouts/` and applies via `hyprctl eval`.
@@ -57,6 +58,6 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 
 ## Known caveats / deferred
 
-- **Idle / lock**: the custom `hypridle.conf` (screensaver at 2.5 min, lock at 5 min) and `hyprlock.conf` are retired in quattro; the shell (`shell.json`) exposes only `screensaver`/`lock` timings. `omarchy-system-wake` no longer exists — the sleep/wake path is now the shell's `omarchy-system-sleep-lock` service. Revisit via a `post-boot` hook or shell idle callbacks.
+- **Idle / lock**: the branch uses the installed Omarchy `hypridle.conf` (screensaver at 2.5 minutes, lock at 5 minutes). Re-check its commands after alpha updates.
 - **Monitor Lua settings**: the project retains the existing retina/10-bit monitor settings for now; monitor migration is intentionally deferred.
 - **Tmux**: `tmux-sensible` may override `default-terminal` — verify the status bar after TPM install.
