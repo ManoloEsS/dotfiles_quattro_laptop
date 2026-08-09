@@ -13,29 +13,15 @@ hl.unbind("SUPER + J")
 hl.unbind("SUPER + K")
 hl.unbind("SUPER + L")
 
--- App/webapp launcher unbinds (preinstalled block is off via hyprland.lua,
--- so these are defensive; they also apply if preinstalls are re-enabled)
+-- Personal scrolling/master bindings reuse Quattro application shortcuts.
 hl.unbind("SUPER + SHIFT + M")
-hl.unbind("SUPER + SHIFT + ALT + M")
 hl.unbind("SUPER + SHIFT + N")
-hl.unbind("SUPER + SHIFT + D")
-hl.unbind("SUPER + SHIFT + G")
-hl.unbind("SUPER + SHIFT + O")
-hl.unbind("SUPER + SHIFT + W")
 hl.unbind("SUPER + SHIFT + SLASH")
-hl.unbind("SUPER + SHIFT + A")
-hl.unbind("SUPER + SHIFT + ALT + A")
-hl.unbind("SUPER + SHIFT + C")
-hl.unbind("SUPER + SHIFT + E")
 hl.unbind("SUPER + SHIFT + Y")
 hl.unbind("SUPER + SHIFT + comma")
-hl.unbind("SUPER + SHIFT + ALT + G")
-hl.unbind("SUPER + SHIFT + CTRL + G")
 hl.unbind("SUPER + SHIFT + P")
-hl.unbind("SUPER + SHIFT + X")
-hl.unbind("SUPER + SHIFT + ALT + X")
 
--- Unbind monitor scaling up (was cycle scaling via code:61 in 3.8)
+-- Personal keybindings replace Quattro's monitor scaling shortcut.
 hl.unbind("SUPER + SLASH")
 
 -- SUPER+P pseudo → repurposed to scrolling rollprev

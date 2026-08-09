@@ -16,17 +16,17 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 
 ## Keybinding decisions (this machine is deliberately simpler)
 
-- **Super+J / Super+K / Super+L** are unbound for HJKL navigation. `Super+L` (workspace-layout) is already covered by `Super+Shift+I` (the custom scrolling↔master toggle), and `Super+J` (togglesplit) only applies to the dwindle layout this machine doesn't use. Both were already dropped in 3.8 — no functionality was added back.
+- **Super+J / Super+K / Super+L** are unbound for HJKL navigation. `Super+L` (workspace-layout) is already covered by `Super+Shift+I` (the custom scrolling↔master toggle), and `Super+J` (togglesplit) only applies to the dwindle layout this machine doesn't use.
 - **Super+P** (quattro default: pseudo) is repurposed to scrolling `rollprev`.
 - **Super+/`** shows keybindings (`omarchy-menu-keybindings`); **Super+Shift+/`** does monitor scaling up (the old `omarchy-hyprland-monitor-scaling-cycle` was retired).
-- Essential app binds (Super+Shift+F/B/RETURN) stay; the preinstalled app/webapp block is off via `omarchy_preinstalled_bindings = false` in `hyprland.lua`.
+- Non-conflicting Quattro application bindings stay enabled; only personal key conflicts are unbound.
 - Volume keys step 2% via `omarchy-audio-output-volume +2/-2`.
 
 ## Files in `hypromarchy/.config/hypr/`
 
-- `hyprland.lua` — entry point (stock + `omarchy_preinstalled_bindings = false`, `require("hypr.envs")`).
+- `hyprland.lua` — current Quattro entry point plus `require("hypr.envs")`; Quattro defaults remain enabled.
 - `monitors.lua` — GDK_SCALE 2, auto-detected display at `preferred`/`auto` with 10-bit + auto color management.
-- `input.lua` — us / `compose:caps` / numlock / repeat 40-600 / touchpad clickfinger + 0.4; `scroll_touchpad` rules.
+- Input settings — inherited from the current Quattro base configuration.
 - `looknfeel.lua` — gaps 0, border 1, default `scrolling` layout, master block, `column_width = 0.67`.
 - `bindings.lua` — the bind set above.
 - `autostart.lua` — empty (nightlight is opt-in per `hyprsunset.conf`).
@@ -42,20 +42,21 @@ The 3.8 Hyprland configs are preserved for reference under `legacy/hypr-3.8/`.
 ## Installing on a fresh quattro system
 
 1. Install Omarchy quattro (ISO or `omarchy upgrade to quattro` on 3.8).
-2. Clone/copy this repo to `~/dotfiles_quattro_laptop` (the zsh `envs` points here) and symlink/stow `hypromarchy` → `~/.config/hypr`, `tmuxomarchy/.tmux.conf` → `~/.tmux.conf`, `keyd` per its install script.
-3. Ensure the toggle script resolves: `ln -sf ~/.config/hypr/omarchy-hyprland-workspace-layout-scrolling-master-toggle ~/.local/bin/` (or adjust the path in `bindings.lua`).
-4. `omarchy theme set "Tokyo Night"` (or your theme) so themed files regenerate with quattro templates.
+2. Clone/copy this repo to `~/dotfiles_quattro_laptop` and run `omarchy_scripts/stow-configs.sh`. It backs up conflicting home files and deploys `hypromarchy`, `tmuxomarchy`, and `zshomarchy` safely.
+3. Review and run `keyd/install.sh` separately with root approval if keyd is installed.
+4. `omarchy theme set "Tokyo Night"` (or your theme) so themed files regenerate with Quattro templates.
 5. Install tmux plugins once: `prefix + I`.
 
 ## Validation checklist
 
-- `hyprctl configerrors` → clean; `hyprctl binds | head` spot-checks HJKL, Super+P, Super+/`; `omarchy menu keybindings --print` confirms descriptions.
+- `hyprland --verify-config -c ~/.config/hypr/hyprland.lua` → `config ok`.
+- `hyprctl configerrors` → clean; `hyprctl binds` spot-checks HJKL, Super+P, Super+/`; `omarchy menu keybindings --print` confirms descriptions.
 - `hyprctl monitors` → display at expected scale.
 - `hyprctl activeworkspace` → layout on a master workspace reports `master`.
 - Tmux: `prefix + q` reloads without error, `prefix + ?` opens the keybindings popup, TPM installed.
 
 ## Known caveats / deferred
 
-- **Idle / lock**: the custom `hypridle.conf` (screensaver at 2.5 min, lock at 5 min) and `hyprlock.conf` are retired in quattro; the shell (`shell.json`) exposes only `screensaver`/`lock` timings. `omarchy-system-wake` no longer exists — the sleep/wake path is now the shell's `omarchy-system-sleep-lock` service. Revisit via a `post-boot` hook or shell idle callbacks.
-- **Lua param names to verify against `/usr/share/hypr/stubs` on the target** (Hyprland 0.55+): `hl.monitor` `bitdepth`/`cm`/`scale`, `hl.workspace_rule` `default`/`monitor`.
+- **Idle / lock**: Quattro shell idle and lock behavior is used; the legacy `hypridle.conf` and `hyprlock.conf` are intentionally not migrated.
+- **Keyd**: `/etc/keyd/default.conf` is system-level and is intentionally outside the home-directory Stow deployment.
 - **Tmux**: `tmux-sensible` may override `default-terminal` — verify the status bar after TPM install.
