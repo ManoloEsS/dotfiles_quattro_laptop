@@ -42,7 +42,8 @@ hl.unbind("SUPER + SHIFT + P")
 -- Personal keybindings replace Quattro's monitor scaling shortcut.
 hl.unbind("SUPER + SLASH")
 
--- SUPER+P pseudo → repurposed to scrolling rollprev
+-- SUPER+P pseudo → repurposed to scrolling/master rollprev.
+-- Pseudo window is relocated to SUPER+ALT+P below.
 hl.unbind("SUPER + P")
 
 -- Volume override: 2% steps instead of default
@@ -87,6 +88,7 @@ o.bind("SUPER + SHIFT + Y", "Cycle previous", master_only("cycleprev loop"))
 o.bind("SUPER + m", "Promote window", scrolling_only("promote"))
 o.bind("SUPER + N", "Roll next", master_only("rollnext"))
 o.bind("SUPER + P", "Roll previous", master_only("rollprev"))
+o.bind("SUPER + ALT + P", "Pseudo window", hl.dsp.window.pseudo())
 o.bind("SUPER + a", "Add master", master_only("addmaster"))
 o.bind("SUPER + z", "Remove master", master_only("removemaster"))
 
