@@ -75,8 +75,9 @@ o.bind("SUPER + R", "Expand column left", scrolling_only("colresize +conf"))
 o.bind("SUPER + SHIFT + R", "Shrink column left", scrolling_only("colresize -conf"))
 
 -- =====================================================
--- APP LAUNCHER: Yazi (ghostty is this machine's terminal)
+-- APP LAUNCHER: Music and Yazi (ghostty is this machine's terminal)
 -- =====================================================
+o.bind("SUPER + CTRL + M", "Music", { omarchy = "spotify" })
 o.bind("SUPER + E", "Yazi", o.launch("ghostty -e yazi"))
 
 -- =====================================================
